@@ -100,11 +100,7 @@ const pathCreator = google => (path, { color, weight, opacity } = {}) => {
 const drawRoads = (google, roads) => {
   const createPath = pathCreator(google)
   roads.map(r => {
-    if(r.id.endsWith("R")) {
-      createPath(r.coordinates, { color: '#ff00ff', weight: 3 }).setMap(google.map) 
-    }
-    else {
-      createPath(r.coordinates, { color: randomColor(), weight: 2 }).setMap(google.map) 
-    }
+      const color = r.twoWay ? '#444' : randomColor()
+      createPath(r.coordinates, { color, weight: 2 }).setMap(google.map) 
   })
 }
