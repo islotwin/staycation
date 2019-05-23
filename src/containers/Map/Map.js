@@ -100,7 +100,9 @@ const pathCreator = google => (path, { color, weight, opacity } = {}) => {
 const drawRoads = (google, roads) => {
   const createPath = pathCreator(google)
   roads.map(r => {
-      const color = r.twoWay ? '#444' : randomColor()
-      createPath(r.coordinates, { color, weight: 2 }).setMap(google.map) 
+      const color = r.sightSeeing ? randomColor() : '#ccc'
+      const weight = r.sightSeeing ? 3 : 1
+
+      createPath(r.coordinates, { color, weight }).setMap(google.map) 
   })
 }
