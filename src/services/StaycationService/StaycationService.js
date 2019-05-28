@@ -8,7 +8,8 @@ export const getPath = ({ from, to, minSSDist }) => {
       flng: from.lng,
       flat: from.lat,
       tlng: to.lng,
-      tlat: to.lat
+      tlat: to.lat,
+      dist: minSSDist
     }
   }).then(res => res.data)
   // return new Promise((resolve, reject) => {

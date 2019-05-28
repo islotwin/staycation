@@ -43,7 +43,8 @@ class App extends React.Component {
     const from = points.find(p => p.id === "from")
     const to = points.find(p => p.id === "to")
 
-    getPath({ from, to, minSSDist }).then(path => {
+    getPath({ from, to, minSSDist }).then(({ path, sightSeeingDistance }) => {
+      console.log('distance', sightSeeingDistance)
       const p = path.reduce(( acc, curr ) => {
         if(!acc.length) {
           return curr.coordinates
