@@ -2,14 +2,15 @@ import axios from 'axios'
 
 const URL = 'http://localhost:8080'
 
-export const getPath = ({ from, to, minSSDist }) => {
+export const getPath = ({ from, to, minSSDist, shortestPath }) => {
   return axios.get(URL + '/roads/path', {
     params: {
       flng: from.lng,
       flat: from.lat,
       tlng: to.lng,
       tlat: to.lat,
-      dist: minSSDist
+      dist: minSSDist,
+      shortest: shortestPath
     }
   }).then(res => res.data)
   // return new Promise((resolve, reject) => {

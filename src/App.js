@@ -25,7 +25,8 @@ class App extends React.Component {
       }
     ],
     minimumSightSeeingDistance: 0,
-    path: []
+    path: [],
+    shortestPathMode: true
   }
   state = this.defaultState
   updatePoint = ({ id, name, lng, lat }) => {
@@ -39,12 +40,15 @@ class App extends React.Component {
     this.setState({ minimumSightSeeingDistance: event.target.value})
   }
   findPath = () => {
-    const { points, minimumSightSeeingDistance: minSSDist } = this.state
+    const { points, minimumSightSeeingDistance: minSSDist, shortestPathMode: shortestPath } = this.state
     const from = points.find(p => p.id === "from")
     const to = points.find(p => p.id === "to")
 
-    getPath({ from, to, minSSDist }).then(({ path, sightSeeingDistance }) => {
-      console.log('distance', sightSeeingDistance)
+    getPath({ from, to, minSSDist, shortestPath }).then(({ path, sightSeeingDistance, distance, executionTime, time }) => {
+      console.log('sightSeeingDistance', sightSeeingDistance)
+      console.log('distance', distance)
+      console.log('executionTime', executionTime)
+      console.log('time', time)
       const p = path.reduce(( acc, curr ) => {
         if(!acc.length) {
           return curr.coordinates
@@ -73,7 +77,7 @@ class App extends React.Component {
     }
   ]
   render() {
-    const { points, minimumSightSeeingDistance, path } = this.state
+    const { points, minimumSightSeeingDistance, path, shortestPathMode } = this.state
     return (
       <PointContext.Provider value={{
         points,
@@ -81,7 +85,13 @@ class App extends React.Component {
       }}>
         <Layout>
           <Column shadow width="20%" minwidth="250px">
-            <Form points={points} minSightSeeingDist={minimumSightSeeingDistance} onMinSightSeeingDistChange={this.onMinSightSeeingDistChange}/>
+            <Form 
+              points={points} 
+              minSightSeeingDist={minimumSightSeeingDistance} 
+              onMinSightSeeingDistChange={this.onMinSightSeeingDistChange}
+              shortestPathMode={shortestPathMode}
+              setSearchMode={checked => this.setState({ shortestPathMode: checked })}
+            />
             <ActionBlock actions={this.actions}/>
           </Column>
           <Column width="80%">

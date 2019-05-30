@@ -102,6 +102,8 @@ const drawRoads = (google, roads) => {
   roads.map(r => {
       const color = r.sightSeeing ? randomColor() : '#ccc'
       const weight = r.sightSeeing ? 4 : 1
+      // const weight = r.maxSpeed > 1 ? 4 : 1
+      // color = r.maxSpeed > 1 ? '#f00' : '#ccc'
       createPath(r.coordinates, { color, weight }).setMap(google.map) 
   })
 }
