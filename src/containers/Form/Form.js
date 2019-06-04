@@ -10,7 +10,12 @@ export class Form extends React.PureComponent {
     return points.map(p => <Point key={p.id} id={p.id}/>)
   }
   render() {
-    const { minSightSeeingDist, onMinSightSeeingDistChange, shortestPathMode, setSearchMode } = this.props
+    const {
+      minSightSeeingDist, onMinSightSeeingDistChange,
+      shortestPathMode, setSearchMode, time, executionTime,
+      distance, sightSeeingDistance
+    
+    } = this.props
     return (
       <StyledForm>
         {this.renderPoints()}
@@ -35,6 +40,38 @@ export class Form extends React.PureComponent {
           />
           <Label>{shortestPathMode ? "Shortest Path" : "Fastest Path"}</Label>
         </SwitchContainer>
+        <Input
+          className="row"
+          name="executionTime" 
+          label="execution time [s]" 
+          type="number" 
+          placeholder="execution time"
+          value={executionTime/1000000000}
+        />
+        <Input
+          className="row"
+          name="time" 
+          label="road time [s]" 
+          type="number" 
+          placeholder="execution time"
+          value={time}
+        />
+        <Input
+          className="row"
+          name="distance" 
+          label="distance [m]" 
+          type="number" 
+          placeholder="execution time"
+          value={distance}
+        />
+        <Input
+          className="row"
+          name="sightSeeingDistance" 
+          label="sightseeing distance [m]" 
+          type="number" 
+          placeholder="execution time"
+          value={sightSeeingDistance}
+        />
       </StyledForm>
     )
   }

@@ -19,7 +19,7 @@ export const Map = (props) => {
       activePath.setMap(null)
     }
     if(path && path.length > 0) {
-      const newPath = createPath(path, { weight: 6, opacity: 0.5 })
+      const newPath = createPath(path, { weight: 14, opacity: 0.6 })
       newPath.setMap(google.map)
       setActivePath(newPath)
       console.log('newPath', path)
@@ -100,8 +100,19 @@ const pathCreator = google => (path, { color, weight, opacity } = {}) => {
 const drawRoads = (google, roads) => {
   const createPath = pathCreator(google)
   roads.map(r => {
-      const color = r.sightSeeing ? randomColor() : '#ccc'
-      const weight = r.sightSeeing ? 4 : 1
+      let color = r.sightSeeing ? '#00f' : '#ccc'
+      let weight = (r.sightSeeing || r.maxSpeed > 1) ? 3 : 1
+      
+      if (r.sightSeeing && (r.maxSpeed > 1)) {
+        color = 'green'
+      }
+      else if (r.maxSpeed > 1) {
+        color = 'red'
+      }
+      if (!r.twoWay) {
+        weight = 7
+      }
+      
       // const weight = r.maxSpeed > 1 ? 4 : 1
       // color = r.maxSpeed > 1 ? '#f00' : '#ccc'
       createPath(r.coordinates, { color, weight }).setMap(google.map) 

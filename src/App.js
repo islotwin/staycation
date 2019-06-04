@@ -14,19 +14,23 @@ class App extends React.Component {
       {
         id: "from",
         name: "Starting point",
-        lng: -78.944970,
-        lat: 42.927905    
+        lng: -79.231243,
+        lat: 42.965433    
       },
       {
         id: "to",
         name: "Destination",
-        lng: -79.132981,
-        lat: 42.962343      
+        lng: -79.332523,
+        lat: 43.017165     
       }
     ],
     minimumSightSeeingDistance: 0,
     path: [],
-    shortestPathMode: true
+    shortestPathMode: true,
+    executionTime: 0,
+    time: 0,
+    sightSeeingDistance: 0,
+    distance: 0
   }
   state = this.defaultState
   updatePoint = ({ id, name, lng, lat }) => {
@@ -55,7 +59,7 @@ class App extends React.Component {
         }
         return acc.concat(curr.coordinates)
       }, [])
-      this.setState({ path: p })
+      this.setState({ path: p, executionTime, time, sightSeeingDistance, distance })
     })
   }
   resetState = () => {
@@ -77,7 +81,7 @@ class App extends React.Component {
     }
   ]
   render() {
-    const { points, minimumSightSeeingDistance, path, shortestPathMode } = this.state
+    const { points, minimumSightSeeingDistance, path, shortestPathMode, time, executionTime, distance, sightSeeingDistance } = this.state
     return (
       <PointContext.Provider value={{
         points,
@@ -91,6 +95,10 @@ class App extends React.Component {
               onMinSightSeeingDistChange={this.onMinSightSeeingDistChange}
               shortestPathMode={shortestPathMode}
               setSearchMode={checked => this.setState({ shortestPathMode: checked })}
+              time={time}
+              executionTime={executionTime}
+              distance={distance}
+              sightSeeingDistance={sightSeeingDistance}
             />
             <ActionBlock actions={this.actions}/>
           </Column>
